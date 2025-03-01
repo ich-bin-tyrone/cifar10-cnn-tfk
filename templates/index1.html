@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Image Classification</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Color Palette from the Image */
+    :root {
+      --light-color: #88BDBC;
+      --medium-color: #254E58;
+      --dark-color: #112D32;
+      --tan-color: #4F4A41;
+      --light-tan-color: #6E6658;
+    }
+
+    body {
+      background-color: var(--light-color); /* Light background */
+    }
+    .container {
+      margin-top: 50px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      padding: 30px;
+    }
+    .jumbotron {
+      background-color: var(--medium-color); /* Medium color jumbotron */
+      color: white;
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px 8px 0 0;
+    }
+    .form-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 25px;
+    }
+    .form-control {
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      padding: 8px; /* Increased padding */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .form-control:focus {
+      border-color: #80bdff;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    .btn-success {
+      background-color: var(--dark-color); /* Dark color button */
+      border-color: var(--dark-color);
+      color: white;
+      border-radius: 8px;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: 500;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-success:hover {
+      background-color: var(--light-color); /* Slightly lighter on hover */
+      border-color: var(--light-color);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      color: #10282c;
+    }
+    .btn-success:focus, .btn-success.focus {
+      box-shadow: 0 0 0 0.6rem rgba(0, 123, 255, 0.5);
+    }
+    .img-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .img-container img {
+      max-width: 400px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .prediction-results {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .prediction-results h2 {
+      color: var(--dark-color); /* Dark color heading */
+    }
+    .prediction-results i {
+      color: var(--medium-color); /* Medium color prediction */
+    }
+    .prediction-results h2, .prediction-results p {
+      margin-bottom: 10px;
+    }
+
+    .instruction {
+      background-color: #e9ecef; /* Very light gray background */
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      text-align: center;
+      font-size: 1.1em;  /* Slightly larger font */
+      color: #343a40; /* Dark gray text color */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      line-height: 1.6; /* Improve readability */
+    }
+    
+    .instruction p { /* Style individual paragraphs within the instruction */
+      margin-bottom: 10px; /* Space between paragraphs */
+    }
+    
+    .instruction strong { /* Style any emphasized text */
+      font-weight: bold;
+      color: var(--dark-color); /* Use your dark color from the palette */
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>X-ray Image Classification</h1>
+  </div>
+
+  <div class="instruction">
+    <p>Detect potential signs of <b>COVID-19</b>, <b>Pneumonia</b>, or <b>Tuberculosis</b> in your X-ray image.</p>
+    <p>Upload your image using the form below for analysis.</p> 
+  </div>
+
+  <div class="form-container"> 
+
+    <form class="form-horizontal" action="/submit" method="post" enctype="multipart/form-data">
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Upload Your Image :</label>
+        <div class="col-sm-10">          
+          <input type="file" class="form-control" name="my_image" id="pwd">
+        </div>
+      </div>
+
+      <div class="form-group">        
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  {% if prediction %}
+  <div class="img-container">
+    <img src="{{img_path}}" alt="Uploaded Image">
+  </div>
+  <div class="prediction-results">
+      <h2> Prediction   : <i> {{prediction}} </i></h2>
+      <h2> Accuracy   : {{accuracy}}%</h2>
+  </div>
+  {% endif %}
+
+</div>
+
+</body>
+</html>
