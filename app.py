@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 dic = {0: 'COVID19', 1: 'NORMAL', 2: 'PNEUMONIA', 3: 'TUBERCULOSIS'}
 
-model = load_model(os.path.expanduser('~/Desktop/xray_cnn_test.h5'))
+model = load_model(os.path.expanduser('~/Desktop/cifar_cnn.h5'))
 
 model.make_predict_function()
 
