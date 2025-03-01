@@ -127,11 +127,11 @@
 
 <div class="container">
   <div class="jumbotron">
-    <h1>X-ray Image Classification</h1>
+    <h1>CIFAR-10 Image Classification</h1>
   </div>
 
   <div class="instruction">
-    <p>Detect potential signs of <b>COVID-19</b>, <b>Pneumonia</b>, or <b>Tuberculosis</b> in your X-ray image.</p>
+    <p>Classify images from the <b>CIFAR-10</b> dataset into categories like <b>airplanes</b>, <b>cars</b>, <b>dogs</b>, and more.</p>
     <p>Upload your image using the form below for analysis.</p> 
   </div>
 
@@ -157,9 +157,9 @@
   </div>
 
   {% if prediction %}
-  <div class="img-container">
-    <img src="{{img_path}}" alt="Uploaded Image">
-  </div>
+  <!-- <div class="img-container">
+     <img src="{{img_path}}" alt="Uploaded Image">
+  </div> -->
   <div class="prediction-results">
       <h2> Prediction   : <i> {{prediction}} </i></h2>
       <h2> Accuracy   : {{accuracy}}%</h2>
