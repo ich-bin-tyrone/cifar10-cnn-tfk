@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 
 app = Flask(__name__)
 
-dic = {0: 'COVID19', 1: 'NORMAL', 2: 'PNEUMONIA', 3: 'TUBERCULOSIS'}
+dic = {0: 'Airplane', 1: 'Automobile', 2: 'Bird', 3: 'Cat', 4: 'Deer', 5: 'Dog', 6: 'Frog', 7: 'Horse', 8: 'Ship', 9: 'Truck'}
 
 model = load_model(os.path.expanduser('~/Desktop/cifar_cnn.h5'))
 
